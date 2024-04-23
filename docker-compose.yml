@@ -1,0 +1,6 @@
+﻿services:
+  rateyoutfriends:
+    image: rateyoutfriends
+    build:
+      context: .
+      dockerfile: RateYoutFriends/Dockerfile
