@@ -1,7 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using RateYourFriends.Models.Database;
+using Microsoft.AspNetCore.Identity;
+using RateYourFriends.Areas.Identity.Data;
+
+
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<MyContext>(options => 
+    options.UseSqlite(builder.Configuration.GetConnectionString("local")));
 
 var app = builder.Build();
 

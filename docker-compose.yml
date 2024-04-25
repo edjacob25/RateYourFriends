@@ -1,6 +1,6 @@
 ﻿services:
-  rateyoutfriends:
-    image: rateyoutfriends
+  rateyourfriends:
+    image: rateyourfriends
     build:
       context: .
-      dockerfile: RateYoutFriends/Dockerfile
+      dockerfile: RateYourFriends/Dockerfile
