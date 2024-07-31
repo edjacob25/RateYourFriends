@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RateYourFriends.Models.Database;
 using Microsoft.AspNetCore.Identity;
-using RateYourFriends.Areas.Identity.Data;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +11,22 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<MyContext>(options => 
     options.UseSqlite(builder.Configuration.GetConnectionString("local")));
+
+builder.Services.AddDefaultIdentity<Person>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<MyContext>();
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequiredUniqueChars = 1;
+
+    options.User.RequireUniqueEmail = false;
+    options.SignIn.RequireConfirmedAccount = false;
+});
+
 
 var app = builder.Build();
 
@@ -33,5 +48,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();
